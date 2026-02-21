@@ -24,7 +24,7 @@ export default function Home() {
             >
               <Recycle className="h-8 w-8 text-green-600" />
               <span className="text-2xl font-bold text-gray-900">
-                PPS<span className="text-green-600">Recycling</span>LLC
+                PPSP<span className="text-green-600">Recycling</span>LLC
               </span>
             </div>
             
