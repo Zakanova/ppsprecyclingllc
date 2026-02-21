@@ -1,5 +1,5 @@
 import './globals.css'
-import CookieConsent from '@/components/CookieConsent'
+import CookieConsent from '../components/CookieConsent'
 
 export const metadata = {
   title: 'PPS Recycling LLC - IT Asset Disposition & E-Waste Recycling',
