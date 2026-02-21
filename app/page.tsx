@@ -474,7 +474,7 @@ function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 PPS Recycling LLC. All rights reserved.</p>
+          <p>&copy; 2024 PPSP Recycling LLC. All rights reserved.</p>
         </div>
       </div>
     </footer>
