@@ -444,7 +444,7 @@ function Footer() {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Recycle className="h-8 w-8 text-green-400" />
-              <span className="text-2xl font-bold">PPS<span className="text-green-400">Recycling</span>LLC</span>
+              <span className="text-2xl font-bold">PPSP <span className="text-green-400">Recycling</span> LLC</span>
             </div>
             <p className="text-gray-400">Sacramento&apos;s premier electronics recycling and IT asset disposition company.</p>
           </div>
