@@ -157,14 +157,14 @@ function WelcomeSection({ setView }: { setView: (view: 'welcome' | 'buy' | 'itad
               <p className="text-sm text-green-100 mb-4">Ready to schedule a pickup?</p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <a 
-                  href="mailto:info@ppsprecycling.com?subject=E-Waste Pickup Request - Elk Grove"
+                  href="/schedule?type=ewaste"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center space-x-2 transition-all"
                 >
                   <Truck className="h-5 w-5" />
                   <span>Schedule E-Waste Pickup</span>
                 </a>
                 <a 
-                  href="mailto:info@ppsprecycling.com?subject=ITAD/Data Destruction Pickup Request"
+                  href="/schedule?type=itad"
                   className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center space-x-2 transition-all"
                 >
                   <HardDrive className="h-5 w-5" />
@@ -300,14 +300,14 @@ function ITADSection() {
           {/* Separate Schedule Buttons */}
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a 
-              href="mailto:info@ppsprecycling.com?subject=E-Waste Pickup Request - Elk Grove"
+              href="/schedule?type=ewaste"
               className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg inline-flex items-center justify-center space-x-2"
             >
               <Truck className="h-5 w-5" />
               <span>Schedule E-Waste Pickup</span>
             </a>
             <a 
-              href="mailto:info@ppsprecycling.com?subject=ITAD/Data Destruction Pickup Request"
+              href="/schedule?type=itad"
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-lg inline-flex items-center justify-center space-x-2"
             >
               <HardDrive className="h-5 w-5" />
