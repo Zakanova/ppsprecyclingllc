@@ -36,8 +36,12 @@ function ScheduleForm() {
       script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
       script.async = true;
       script.onload = () => {
-        console.log('EmailJS loaded successfully');
-        setEmailjsLoaded(true);
+        console.log('EmailJS loaded, initializing...');
+        if (window.emailjs) {
+          window.emailjs.init({ publicKey: 'bDtZRRUSav3APye6G' });
+          console.log('EmailJS initialized');
+          setEmailjsLoaded(true);
+        }
       };
       script.onerror = () => {
         console.error('Failed to load EmailJS');
@@ -58,15 +62,19 @@ function ScheduleForm() {
 
     try {
       if (typeof window === 'undefined' || !window.emailjs) {
-        await new Promise((resolve, reject) => {
+        await new Promise<void>((resolve, reject) => {
           const script = document.createElement('script');
           script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
           script.async = true;
-          script.onload = resolve;
+          script.onload = () => {
+            if (window.emailjs) {
+              window.emailjs.init({ publicKey: 'bDtZRRUSav3APye6G' });
+            }
+            resolve();
+          };
           script.onerror = reject;
           document.body.appendChild(script);
         });
-        
         await new Promise(resolve => setTimeout(resolve, 500));
       }
 
@@ -74,7 +82,9 @@ function ScheduleForm() {
         throw new Error('EmailJS failed to load');
       }
 
-      await window.emailjs.send(
+      console.log('Sending email...');
+      
+      const result = await window.emailjs.send(
         'service_2n2wp4f',
         'template_6PR2XTL',
         {
@@ -90,14 +100,14 @@ function ScheduleForm() {
           preferred_date: formData.date,
           notes: formData.notes,
           reply_to: formData.email
-        },
-        'bDtZRRUSav3APye6G'
+        }
       );
 
+      console.log('Email sent successfully:', result);
       router.push('/thank-you');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Email failed:', error);
-      alert('Failed to send request. Please call 916-381-8304 directly.');
+      alert('Failed to send request: ' + (error?.text || error?.message || 'Unknown error') + '. Please call 916-381-8304 directly.');
       setIsSubmitting(false);
     }
   };
