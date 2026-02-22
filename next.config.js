@@ -26,7 +26,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://api.emailjs.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://api.emailjs.com; frame-ancestors 'none';",
+            value: "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://api.emailjs.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://api.emailjs.com; frame-ancestors 'none';",
           },
           {
             key: 'Strict-Transport-Security',
@@ -36,9 +36,6 @@ const nextConfig = {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
           },
-          // REMOVED: Access-Control-Allow-Origin: *
-          // This was a security vulnerability - allowing any website to access your resources
-          // CORS should only be enabled on specific API routes if needed, not globally
         ],
       },
     ]
