@@ -114,38 +114,42 @@ function ScheduleForm() {
     }
   };
 
+  // Fixed input classes with explicit borders for mobile visibility
+  const inputClass = "w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400";
+  const labelClass = "block text-sm font-medium text-gray-700 mb-2";
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-          <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
+          <label className={labelClass}>Full Name *</label>
+          <input type="text" name="name" required value={formData.name} onChange={handleChange} className={inputClass} placeholder="John Smith" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Company *</label>
-          <input type="text" name="company" required value={formData.company} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-          <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
-          <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
+          <label className={labelClass}>Company *</label>
+          <input type="text" name="company" required value={formData.company} onChange={handleChange} className={inputClass} placeholder="ABC Company" />
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Pickup Address *</label>
-        <input type="text" name="address" required value={formData.address} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label className={labelClass}>Email *</label>
+          <input type="email" name="email" required value={formData.email} onChange={handleChange} className={inputClass} placeholder="john@company.com" />
+        </div>
+        <div>
+          <label className={labelClass}>Phone *</label>
+          <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className={inputClass} placeholder="916-000-0000" />
+        </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Service Type *</label>
-        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
+        <label className={labelClass}>Pickup Address *</label>
+        <input type="text" name="address" required value={formData.address} onChange={handleChange} className={inputClass} placeholder="123 Main St, Elk Grove, CA" />
+      </div>
+
+      <div>
+        <label className={labelClass}>Service Type *</label>
+        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className={inputClass}>
           <option value="E-Waste Recycling">E-Waste Recycling</option>
           <option value="ITAD Services">ITAD Services</option>
           <option value="Data Destruction">Data Destruction</option>
@@ -153,28 +157,28 @@ function ScheduleForm() {
         </select>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Equipment Type</label>
-          <input type="text" name="equipment" placeholder="e.g., Laptops, Servers" value={formData.equipment} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
+          <label className={labelClass}>Equipment Type</label>
+          <input type="text" name="equipment" placeholder="e.g., Laptops, Servers" value={formData.equipment} onChange={handleChange} className={inputClass} />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Quantity</label>
-          <input type="text" name="quantity" placeholder="e.g., 25 laptops" value={formData.quantity} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
+          <label className={labelClass}>Estimated Quantity</label>
+          <input type="text" name="quantity" placeholder="e.g., 25 laptops" value={formData.quantity} onChange={handleChange} className={inputClass} />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Pickup Date</label>
-        <input type="date" name="date" value={formData.date} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
+        <label className={labelClass}>Preferred Pickup Date</label>
+        <input type="date" name="date" value={formData.date} onChange={handleChange} className={inputClass} />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
-        <textarea name="notes" rows={4} placeholder="Any special requirements..." value={formData.notes} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
+        <label className={labelClass}>Additional Notes</label>
+        <textarea name="notes" rows={4} placeholder="Any special requirements..." value={formData.notes} onChange={handleChange} className={inputClass} />
       </div>
 
-      <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 text-white py-3 px-6 rounded-md font-medium hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2">
+      <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 text-white py-4 px-6 rounded-md font-bold hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-lg">
         {isSubmitting ? 'Sending...' : 'Submit Pickup Request'}
         {!isSubmitting && <ChevronRight className="w-5 h-5" />}
       </button>
@@ -188,15 +192,15 @@ function ScheduleForm() {
 
 function FormSkeleton() {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="h-10 bg-gray-200 rounded animate-pulse"></div>
-        <div className="h-10 bg-gray-200 rounded animate-pulse"></div>
+    <div className="space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+        <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
       </div>
-      <div className="h-10 bg-gray-200 rounded animate-pulse"></div>
-      <div className="h-10 bg-gray-200 rounded animate-pulse"></div>
-      <div className="h-32 bg-gray-200 rounded animate-pulse"></div>
       <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+      <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+      <div className="h-32 bg-gray-200 rounded animate-pulse"></div>
+      <div className="h-14 bg-gray-200 rounded animate-pulse"></div>
     </div>
   );
 }
@@ -222,7 +226,7 @@ export default function SchedulePage() {
               <Link href="/" className="text-gray-600 hover:text-green-600 font-medium">Home</Link>
               <Link href="/services" className="text-gray-600 hover:text-green-600 font-medium">Services</Link>
               <Link href="/schedule" className="text-green-600 font-medium">Schedule Pickup</Link>
-              <Link href="/contact" className="text-gray-600 hover:text-green-600 font-medium">Contact</Link>
+              <Link href="mailto:info@ppsprecyclingllc.com" className="text-gray-600 hover:text-green-600 font-medium">Contact</Link>
             </div>
 
             {/* Mobile menu button */}
@@ -241,7 +245,7 @@ export default function SchedulePage() {
               <Link href="/" className="block px-3 py-2 text-gray-600 hover:text-green-600 font-medium">Home</Link>
               <Link href="/services" className="block px-3 py-2 text-gray-600 hover:text-green-600 font-medium">Services</Link>
               <Link href="/schedule" className="block px-3 py-2 text-green-600 font-medium">Schedule Pickup</Link>
-              <Link href="/contact" className="block px-3 py-2 text-gray-600 hover:text-green-600 font-medium">Contact</Link>
+              <Link href="mailto:info@ppsprecyclingllc.com" className="block px-3 py-2 text-gray-600 hover:text-green-600 font-medium">Contact</Link>
             </div>
           </div>
         )}
