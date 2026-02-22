@@ -1,4 +1,5 @@
-'use client';
+const fs = require('fs');
+const content = `'use client';
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -139,4 +140,7 @@ export default function SchedulePage() {
       </div>
     </div>
   );
-}
+}`;
+
+fs.writeFileSync('app/schedule/page.tsx', content);
+console.log('✅ File created successfully!');
