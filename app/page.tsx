@@ -13,7 +13,6 @@ import {
   Mail,
   MapPin
 } from 'lucide-react';
-import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -41,9 +40,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-green-800 via-green-700 to-green-600 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
-        </div>
+        <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -111,7 +108,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Image 1: Hard Drive Destruction */}
             <div className="group relative overflow-hidden rounded-xl shadow-lg bg-white">
-              <div className="aspect-w-16 aspect-h-12 h-64 overflow-hidden">
+              <div className="h-64 overflow-hidden">
                 <img 
                   src="/images/hard-drive-crusher.jpg" 
                   alt="Hard drive destruction for data security"
@@ -133,7 +130,7 @@ export default function Home() {
 
             {/* Image 2: E-Waste Sorting */}
             <div className="group relative overflow-hidden rounded-xl shadow-lg bg-white">
-              <div className="aspect-w-16 aspect-h-12 h-64 overflow-hidden">
+              <div className="h-64 overflow-hidden">
                 <img 
                   src="/images/ewaste-sorting.jpg" 
                   alt="Professional e-waste sorting facility"
@@ -155,7 +152,7 @@ export default function Home() {
 
             {/* Image 3: Cable Recycling */}
             <div className="group relative overflow-hidden rounded-xl shadow-lg bg-white">
-              <div className="aspect-w-16 aspect-h-12 h-64 overflow-hidden">
+              <div className="h-64 overflow-hidden">
                 <img 
                   src="/images/cable-recycling.jpg" 
                   alt="Cable and wire recycling"
@@ -177,7 +174,7 @@ export default function Home() {
 
             {/* Image 4: Motherboard Recycling */}
             <div className="group relative overflow-hidden rounded-xl shadow-lg bg-white">
-              <div className="aspect-w-16 aspect-h-12 h-64 overflow-hidden">
+              <div className="h-64 overflow-hidden">
                 <img 
                   src="/images/motherboard-recycling.jpg" 
                   alt="Circuit board and motherboard recycling"
@@ -199,7 +196,7 @@ export default function Home() {
 
             {/* Image 5: Data Center Decommissioning */}
             <div className="group relative overflow-hidden rounded-xl shadow-lg bg-white">
-              <div className="aspect-w-16 aspect-h-12 h-64 overflow-hidden">
+              <div className="h-64 overflow-hidden">
                 <img 
                   src="/images/data-center-decom.jpg" 
                   alt="Data center decommissioning services"
@@ -221,7 +218,7 @@ export default function Home() {
 
             {/* Image 6: Warehouse & Logistics */}
             <div className="group relative overflow-hidden rounded-xl shadow-lg bg-white">
-              <div className="aspect-w-16 aspect-h-12 h-64 overflow-hidden">
+              <div className="h-64 overflow-hidden">
                 <img 
                   src="/images/warehouse-pallets.jpg" 
                   alt="Electronics warehouse and palletized recycling"
