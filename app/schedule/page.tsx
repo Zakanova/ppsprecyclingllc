@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Script from 'next/script';
 
 declare global {
   interface Window {
@@ -14,6 +13,7 @@ function ScheduleForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const defaultType = searchParams.get('type') || 'ewaste';
+  const [emailjsLoaded, setEmailjsLoaded] = useState(false);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -30,6 +30,24 @@ function ScheduleForm() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !window.emailjs) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+      script.async = true;
+      script.onload = () => {
+        console.log('EmailJS loaded successfully');
+        setEmailjsLoaded(true);
+      };
+      script.onerror = () => {
+        console.error('Failed to load EmailJS');
+      };
+      document.body.appendChild(script);
+    } else if (typeof window !== 'undefined' && window.emailjs) {
+      setEmailjsLoaded(true);
+    }
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -40,7 +58,20 @@ function ScheduleForm() {
 
     try {
       if (typeof window === 'undefined' || !window.emailjs) {
-        throw new Error('EmailJS not loaded');
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+          script.async = true;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.body.appendChild(script);
+        });
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+
+      if (!window.emailjs) {
+        throw new Error('EmailJS failed to load');
       }
 
       await window.emailjs.send(
@@ -164,11 +195,6 @@ export default function SchedulePage() {
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Schedule a Pickup</h1>
           <p className="text-gray-600 text-center mb-8">Fill out the form below and we will contact you within 2 hours</p>
-          
-          <Script 
-            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" 
-            strategy="beforeInteractive"
-          />
           
           <Suspense fallback={<FormSkeleton />}>
             <ScheduleForm />
