@@ -86,7 +86,7 @@ function ScheduleForm() {
       
       const result = await window.emailjs.send(
         'service_2n2wp4f',
-        'template_6PR2XTL',
+        'template_6pr2xtl',
         {
           to_email: 'ppsprecyclingllc@gmail.com',
           from_name: formData.name,
