@@ -115,7 +115,7 @@ function ScheduleForm() {
   };
 
   // Fixed input classes with explicit borders for mobile visibility
-  const inputClass = "w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400";
+  
   const labelClass = "block text-sm font-medium text-gray-700 mb-2";
 
   return (
@@ -123,33 +123,33 @@ function ScheduleForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <label className={labelClass}>Full Name *</label>
-          <input type="text" name="name" required value={formData.name} onChange={handleChange} className={inputClass} placeholder="John Smith" />
+          <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="John Smith" />
         </div>
         <div>
           <label className={labelClass}>Company *</label>
-          <input type="text" name="company" required value={formData.company} onChange={handleChange} className={inputClass} placeholder="ABC Company" />
+          <input type="text" name="company" required value={formData.company} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="ABC Company" />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <label className={labelClass}>Email *</label>
-          <input type="email" name="email" required value={formData.email} onChange={handleChange} className={inputClass} placeholder="john@company.com" />
+          <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="john@company.com" />
         </div>
         <div>
           <label className={labelClass}>Phone *</label>
-          <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className={inputClass} placeholder="916-000-0000" />
+          <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="916-000-0000" />
         </div>
       </div>
 
       <div>
         <label className={labelClass}>Pickup Address *</label>
-        <input type="text" name="address" required value={formData.address} onChange={handleChange} className={inputClass} placeholder="123 Main St, Elk Grove, CA" />
+        <input type="text" name="address" required value={formData.address} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="123 Main St, Elk Grove, CA" />
       </div>
 
       <div>
         <label className={labelClass}>Service Type *</label>
-        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className={inputClass}>
+        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400">
           <option value="E-Waste Recycling">E-Waste Recycling</option>
           <option value="ITAD Services">ITAD Services</option>
           <option value="Data Destruction">Data Destruction</option>
@@ -160,22 +160,22 @@ function ScheduleForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <label className={labelClass}>Equipment Type</label>
-          <input type="text" name="equipment" placeholder="e.g., Laptops, Servers" value={formData.equipment} onChange={handleChange} className={inputClass} />
+          <input type="text" name="equipment" placeholder="e.g., Laptops, Servers" value={formData.equipment} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" />
         </div>
         <div>
           <label className={labelClass}>Estimated Quantity</label>
-          <input type="text" name="quantity" placeholder="e.g., 25 laptops" value={formData.quantity} onChange={handleChange} className={inputClass} />
+          <input type="text" name="quantity" placeholder="e.g., 25 laptops" value={formData.quantity} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" />
         </div>
       </div>
 
       <div>
         <label className={labelClass}>Preferred Pickup Date</label>
-        <input type="date" name="date" value={formData.date} onChange={handleChange} className={inputClass} />
+        <input type="date" name="date" value={formData.date} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" />
       </div>
 
       <div>
         <label className={labelClass}>Additional Notes</label>
-        <textarea name="notes" rows={4} placeholder="Any special requirements..." value={formData.notes} onChange={handleChange} className={inputClass} />
+        <textarea name="notes" rows={4} placeholder="Any special requirements..." value={formData.notes} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" />
       </div>
 
       <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 text-white py-4 px-6 rounded-md font-bold hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-lg">
