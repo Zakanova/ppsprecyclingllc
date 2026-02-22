@@ -11,7 +11,8 @@ import {
   ArrowRight,
   Phone,
   Mail,
-  MapPin
+  MapPin,
+  Award
 } from 'lucide-react';
 
 export default function Home() {
@@ -29,7 +30,7 @@ export default function Home() {
               <Link href="/" className="text-green-600 font-medium">Home</Link>
               <Link href="/services" className="text-gray-600 hover:text-green-600 font-medium">Services</Link>
               <Link href="/schedule" className="text-gray-600 hover:text-green-600 font-medium">Schedule Pickup</Link>
-              <Link href="/contact" className="text-gray-600 hover:text-green-600 font-medium">Contact</Link>
+              <Link href="mailto:info@ppsprecyclingllc.com" className="text-gray-600 hover:text-green-600 font-medium">Contact Us</Link>
             </div>
             <Link href="/schedule" className="bg-green-600 text-white px-4 py-2 rounded-md font-medium hover:bg-green-700 transition-colors">
               Get Quote
@@ -83,7 +84,7 @@ export default function Home() {
                       <div className="text-sm text-green-100">Response Time</div>
                     </div>
                     <div className="bg-white/10 rounded-lg p-4 text-center">
-                      <div className="text-3xl font-bold">R2</div>
+                      <div className="text-3xl font-bold">ISO</div>
                       <div className="text-sm text-green-100">Certified</div>
                     </div>
                   </div>
@@ -93,6 +94,35 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* ISO Certifications Section */}
+      <section className="py-12 bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center gap-8 items-center">
+            <div className="flex items-center gap-3 bg-gray-50 px-6 py-3 rounded-lg">
+              <Award className="w-8 h-8 text-green-600" />
+              <div>
+                <div className="font-bold text-gray-900">ISO 9001</div>
+                <div className="text-sm text-gray-600">Quality Management</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-gray-50 px-6 py-3 rounded-lg">
+              <Award className="w-8 h-8 text-green-600" />
+              <div>
+                <div className="font-bold text-gray-900">ISO 14001</div>
+                <div className="text-sm text-gray-600">Environmental Management</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-gray-50 px-6 py-3 rounded-lg">
+              <Award className="w-8 h-8 text-green-600" />
+              <div>
+                <div className="font-bold text-gray-900">ISO 45001</div>
+                <div className="text-sm text-gray-600">Occupational Health & Safety</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Process Gallery Section */}
       <section className="py-20 bg-gray-50">
@@ -330,8 +360,7 @@ export default function Home() {
             <div>
               <h4 className="font-bold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400 text-sm">
-                <li><Link href="/about" className="hover:text-white">About Us</Link></li>
-                <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
+                <li><a href="mailto:info@ppsprecyclingllc.com" className="hover:text-white">Contact Us</a></li>
                 <li><Link href="/schedule" className="hover:text-white">Schedule Pickup</Link></li>
               </ul>
             </div>
