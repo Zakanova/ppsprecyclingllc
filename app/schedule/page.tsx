@@ -2,6 +2,8 @@
 
 import { useState, Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { Truck, Phone, Mail, MapPin, Recycle, Menu, X, ChevronRight, CheckCircle } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -117,33 +119,33 @@ function ScheduleForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-          <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+          <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Company *</label>
-          <input type="text" name="company" required value={formData.company} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+          <input type="text" name="company" required value={formData.company} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-          <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+          <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
-          <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+          <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Pickup Address *</label>
-        <input type="text" name="address" required value={formData.address} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+        <input type="text" name="address" required value={formData.address} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Service Type *</label>
-        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
           <option value="E-Waste Recycling">E-Waste Recycling</option>
           <option value="ITAD Services">ITAD Services</option>
           <option value="Data Destruction">Data Destruction</option>
@@ -154,30 +156,31 @@ function ScheduleForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Equipment Type</label>
-          <input type="text" name="equipment" placeholder="e.g., Laptops, Servers" value={formData.equipment} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+          <input type="text" name="equipment" placeholder="e.g., Laptops, Servers" value={formData.equipment} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Quantity</label>
-          <input type="text" name="quantity" placeholder="e.g., 25 laptops" value={formData.quantity} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+          <input type="text" name="quantity" placeholder="e.g., 25 laptops" value={formData.quantity} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Pickup Date</label>
-        <input type="date" name="date" value={formData.date} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+        <input type="date" name="date" value={formData.date} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
-        <textarea name="notes" rows={4} placeholder="Any special requirements..." value={formData.notes} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+        <textarea name="notes" rows={4} placeholder="Any special requirements..." value={formData.notes} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" />
       </div>
 
-      <button type="submit" disabled={isSubmitting} className="w-full bg-blue-600 text-white py-3 px-6 rounded-md font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors">
-        {isSubmitting ? 'Sending...' : 'Schedule Pickup'}
+      <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 text-white py-3 px-6 rounded-md font-medium hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2">
+        {isSubmitting ? 'Sending...' : 'Submit Pickup Request'}
+        {!isSubmitting && <ChevronRight className="w-5 h-5" />}
       </button>
 
       <p className="text-sm text-gray-500 text-center">
-        Or call us directly at <a href="tel:916-381-8304" className="text-blue-600 hover:underline">916-381-8304</a>
+        Or call us directly at <a href="tel:916-381-8304" className="text-green-600 hover:underline font-medium">916-381-8304</a>
       </p>
     </form>
   );
@@ -199,18 +202,133 @@ function FormSkeleton() {
 }
 
 export default function SchedulePage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Schedule a Pickup</h1>
-          <p className="text-gray-600 text-center mb-8">Fill out the form below and we will contact you within 2 hours</p>
-          
-          <Suspense fallback={<FormSkeleton />}>
-            <ScheduleForm />
-          </Suspense>
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <nav className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center gap-2">
+                <Recycle className="w-8 h-8 text-green-600" />
+                <span className="text-xl font-bold text-gray-900">PPSP Recycling</span>
+              </Link>
+            </div>
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              <Link href="/" className="text-gray-600 hover:text-green-600 font-medium">Home</Link>
+              <Link href="/services" className="text-gray-600 hover:text-green-600 font-medium">Services</Link>
+              <Link href="/schedule" className="text-green-600 font-medium">Schedule Pickup</Link>
+              <Link href="/contact" className="text-gray-600 hover:text-green-600 font-medium">Contact</Link>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-gray-600 hover:text-gray-900">
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-t">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <Link href="/" className="block px-3 py-2 text-gray-600 hover:text-green-600 font-medium">Home</Link>
+              <Link href="/services" className="block px-3 py-2 text-gray-600 hover:text-green-600 font-medium">Services</Link>
+              <Link href="/schedule" className="block px-3 py-2 text-green-600 font-medium">Schedule Pickup</Link>
+              <Link href="/contact" className="block px-3 py-2 text-gray-600 hover:text-green-600 font-medium">Contact</Link>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Green Header Section */}
+      <div className="bg-gradient-to-r from-green-700 to-green-600 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-4">
+            <div className="bg-white/20 p-3 rounded-lg">
+              <Truck className="w-8 h-8" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold">Schedule a Pickup</h1>
+              <p className="text-green-100 mt-1">Fill out the form and we will contact you within 2 hours</p>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Form Section */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          {/* Form Header */}
+          <div className="bg-gray-50 px-8 py-6 border-b">
+            <div className="flex items-center gap-3">
+              <div className="bg-green-100 p-2 rounded-full">
+                <CheckCircle className="w-5 h-5 text-green-600" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900">Request Information</h2>
+                <p className="text-sm text-gray-500">All fields marked with * are required</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Form Content */}
+          <div className="p-8">
+            <Suspense fallback={<FormSkeleton />}>
+              <ScheduleForm />
+            </Suspense>
+          </div>
+        </div>
+
+        {/* Contact Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          <div className="bg-white rounded-lg shadow p-6 text-center">
+            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Phone className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="font-semibold text-gray-900 mb-2">Call Us</h3>
+            <p className="text-gray-600 text-sm mb-3">Speak directly with our team</p>
+            <a href="tel:916-381-8304" className="text-green-600 font-medium hover:underline">916-381-8304</a>
+          </div>
+
+          <div className="bg-white rounded-lg shadow p-6 text-center">
+            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Mail className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="font-semibold text-gray-900 mb-2">Email Us</h3>
+            <p className="text-gray-600 text-sm mb-3">Send us an email anytime</p>
+            <a href="mailto:info@ppsprecyclingllc.com" className="text-green-600 font-medium hover:underline">info@ppsprecyclingllc.com</a>
+          </div>
+
+          <div className="bg-white rounded-lg shadow p-6 text-center">
+            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+              <MapPin className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="font-semibold text-gray-900 mb-2">Visit Us</h3>
+            <p className="text-gray-600 text-sm mb-3">Elk Grove, CA</p>
+            <span className="text-green-600 font-medium">9095 Elk Grove Blvd Suite B</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8 mt-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Recycle className="w-6 h-6 text-green-500" />
+              <span className="font-semibold">PPSP Recycling LLC</span>
+            </div>
+            <p className="text-gray-400 text-sm">© 2026 PPSP Recycling LLC. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
