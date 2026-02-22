@@ -4,6 +4,12 @@ import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 
+declare global {
+  interface Window {
+    emailjs: any;
+  }
+}
+
 function ScheduleForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -24,11 +30,11 @@ function ScheduleForm() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
