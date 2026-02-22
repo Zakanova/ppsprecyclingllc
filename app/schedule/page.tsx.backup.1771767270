@@ -38,10 +38,15 @@ function ScheduleForm() {
       script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
       script.async = true;
       script.onload = () => {
+        console.log('EmailJS loaded, initializing...');
         if (window.emailjs) {
           window.emailjs.init({ publicKey: 'bDtZRRUSav3APye6G' });
+          console.log('EmailJS initialized');
           setEmailjsLoaded(true);
         }
+      };
+      script.onerror = () => {
+        console.error('Failed to load EmailJS');
       };
       document.body.appendChild(script);
     } else if (typeof window !== 'undefined' && window.emailjs) {
@@ -79,7 +84,9 @@ function ScheduleForm() {
         throw new Error('EmailJS failed to load');
       }
 
-      await window.emailjs.send(
+      console.log('Sending email...');
+      
+      const result = await window.emailjs.send(
         'service_2n2wp4f',
         'template_6pr2xtl',
         {
@@ -98,132 +105,51 @@ function ScheduleForm() {
         }
       );
 
+      console.log('Email sent successfully:', result);
       router.push('/thank-you');
     } catch (error: any) {
+      console.error('Email failed:', error);
       alert('Failed to send request: ' + (error?.text || error?.message || 'Unknown error') + '. Please call 916-381-8304 directly.');
       setIsSubmitting(false);
     }
   };
 
+  // Fixed input classes with explicit borders for mobile visibility
+  
+  const labelClass = "block text-sm font-medium text-gray-700 mb-2";
+
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-          <input 
-            type="text" 
-            name="name" 
-            required 
-            value={formData.name} 
-            onChange={handleChange} 
-            style={{
-              width: '100%',
-              padding: '0.75rem 1rem',
-              border: '2px solid #d1d5db',
-              borderRadius: '0.375rem',
-              backgroundColor: 'white',
-              color: '#111827'
-            }}
-            placeholder="John Smith" 
-          />
+          <label className={labelClass}>Full Name *</label>
+          <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="John Smith" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Company *</label>
-          <input 
-            type="text" 
-            name="company" 
-            required 
-            value={formData.company} 
-            onChange={handleChange} 
-            style={{
-              width: '100%',
-              padding: '0.75rem 1rem',
-              border: '2px solid #d1d5db',
-              borderRadius: '0.375rem',
-              backgroundColor: 'white',
-              color: '#111827'
-            }}
-            placeholder="ABC Company" 
-          />
+          <label className={labelClass}>Company *</label>
+          <input type="text" name="company" required value={formData.company} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="ABC Company" />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-          <input 
-            type="email" 
-            name="email" 
-            required 
-            value={formData.email} 
-            onChange={handleChange} 
-            style={{
-              width: '100%',
-              padding: '0.75rem 1rem',
-              border: '2px solid #d1d5db',
-              borderRadius: '0.375rem',
-              backgroundColor: 'white',
-              color: '#111827'
-            }}
-            placeholder="john@company.com" 
-          />
+          <label className={labelClass}>Email *</label>
+          <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="john@company.com" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
-          <input 
-            type="tel" 
-            name="phone" 
-            required 
-            value={formData.phone} 
-            onChange={handleChange} 
-            style={{
-              width: '100%',
-              padding: '0.75rem 1rem',
-              border: '2px solid #d1d5db',
-              borderRadius: '0.375rem',
-              backgroundColor: 'white',
-              color: '#111827'
-            }}
-            placeholder="916-000-0000" 
-          />
+          <label className={labelClass}>Phone *</label>
+          <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="916-000-0000" />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Pickup Address *</label>
-        <input 
-          type="text" 
-          name="address" 
-          required 
-          value={formData.address} 
-          onChange={handleChange} 
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            border: '2px solid #d1d5db',
-            borderRadius: '0.375rem',
-            backgroundColor: 'white',
-            color: '#111827'
-          }}
-          placeholder="123 Main St, Elk Grove, CA" 
-        />
+        <label className={labelClass}>Pickup Address *</label>
+        <input type="text" name="address" required value={formData.address} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" placeholder="123 Main St, Elk Grove, CA" />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Service Type *</label>
-        <select 
-          name="serviceType" 
-          value={formData.serviceType} 
-          onChange={handleChange}
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            border: '2px solid #d1d5db',
-            borderRadius: '0.375rem',
-            backgroundColor: 'white',
-            color: '#111827'
-          }}
-        >
+        <label className={labelClass}>Service Type *</label>
+        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400">
           <option value="E-Waste Recycling">E-Waste Recycling</option>
           <option value="ITAD Services">ITAD Services</option>
           <option value="Data Destruction">Data Destruction</option>
@@ -233,85 +159,26 @@ function ScheduleForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Equipment Type</label>
-          <input 
-            type="text" 
-            name="equipment" 
-            placeholder="e.g., Laptops, Servers" 
-            value={formData.equipment} 
-            onChange={handleChange} 
-            style={{
-              width: '100%',
-              padding: '0.75rem 1rem',
-              border: '2px solid #d1d5db',
-              borderRadius: '0.375rem',
-              backgroundColor: 'white',
-              color: '#111827'
-            }}
-          />
+          <label className={labelClass}>Equipment Type</label>
+          <input type="text" name="equipment" placeholder="e.g., Laptops, Servers" value={formData.equipment} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Estimated Quantity</label>
-          <input 
-            type="text" 
-            name="quantity" 
-            placeholder="e.g., 25 laptops" 
-            value={formData.quantity} 
-            onChange={handleChange} 
-            style={{
-              width: '100%',
-              padding: '0.75rem 1rem',
-              border: '2px solid #d1d5db',
-              borderRadius: '0.375rem',
-              backgroundColor: 'white',
-              color: '#111827'
-            }}
-          />
+          <label className={labelClass}>Estimated Quantity</label>
+          <input type="text" name="quantity" placeholder="e.g., 25 laptops" value={formData.quantity} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Pickup Date</label>
-        <input 
-          type="date" 
-          name="date" 
-          value={formData.date} 
-          onChange={handleChange} 
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            border: '2px solid #d1d5db',
-            borderRadius: '0.375rem',
-            backgroundColor: 'white',
-            color: '#111827'
-          }}
-        />
+        <label className={labelClass}>Preferred Pickup Date</label>
+        <input type="date" name="date" value={formData.date} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
-        <textarea 
-          name="notes" 
-          rows={4} 
-          placeholder="Any special requirements..." 
-          value={formData.notes} 
-          onChange={handleChange} 
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            border: '2px solid #d1d5db',
-            borderRadius: '0.375rem',
-            backgroundColor: 'white',
-            color: '#111827'
-          }}
-        />
+        <label className={labelClass}>Additional Notes</label>
+        <textarea name="notes" rows={4} placeholder="Any special requirements..." value={formData.notes} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-900 placeholder-gray-400" />
       </div>
 
-      <button 
-        type="submit" 
-        disabled={isSubmitting} 
-        className="w-full bg-green-600 text-white py-4 px-6 rounded-md font-bold hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-lg"
-      >
+      <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 text-white py-4 px-6 rounded-md font-bold hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-lg">
         {isSubmitting ? 'Sending...' : 'Submit Pickup Request'}
         {!isSubmitting && <ChevronRight className="w-5 h-5" />}
       </button>
@@ -354,6 +221,7 @@ export default function SchedulePage() {
               </Link>
             </div>
             
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-gray-600 hover:text-green-600 font-medium">Home</Link>
               <Link href="/services" className="text-gray-600 hover:text-green-600 font-medium">Services</Link>
@@ -361,6 +229,7 @@ export default function SchedulePage() {
               <Link href="mailto:info@ppsprecyclingllc.com" className="text-gray-600 hover:text-green-600 font-medium">Contact</Link>
             </div>
 
+            {/* Mobile menu button */}
             <div className="md:hidden flex items-center">
               <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-gray-600 hover:text-gray-900">
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -369,6 +238,7 @@ export default function SchedulePage() {
           </div>
         </div>
 
+        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-t">
             <div className="px-2 pt-2 pb-3 space-y-1">
@@ -399,6 +269,7 @@ export default function SchedulePage() {
       {/* Form Section */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          {/* Form Header */}
           <div className="bg-gray-50 px-8 py-6 border-b">
             <div className="flex items-center gap-3">
               <div className="bg-green-100 p-2 rounded-full">
@@ -411,6 +282,7 @@ export default function SchedulePage() {
             </div>
           </div>
 
+          {/* Form Content */}
           <div className="p-8">
             <Suspense fallback={<FormSkeleton />}>
               <ScheduleForm />
