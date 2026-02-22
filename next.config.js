@@ -36,6 +36,9 @@ const nextConfig = {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
           },
+          // REMOVED: Access-Control-Allow-Origin: *
+          // This was a security vulnerability - allowing any website to access your resources
+          // CORS should only be enabled on specific API routes if needed, not globally
         ],
       },
     ]
