@@ -24,4 +24,8 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json({ status: 'error' }, { status: 500 });
   }
-}lik
+}
+
+
+
+
