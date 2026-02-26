@@ -1,11 +1,32 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function ThankYouPage() {
+function ConversionTracker() {
   const searchParams = useSearchParams();
   const fromForm = searchParams.get('source') === 'form';
 
+  if (!fromForm) return null;
+
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-17977971910/PMQoCOvfnf8bEMapyPxC',
+              'value': 1.0,
+              'currency': 'USD'
+            });
+          }
+        `
+      }}
+    />
+  );
+}
+
+export default function ThankYouPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center">
@@ -34,21 +55,9 @@ export default function ThankYouPage() {
         </div>
       </div>
       
-      {fromForm && (
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if (typeof gtag !== 'undefined') {
-                gtag('event', 'conversion', {
-                  'send_to': 'AW-17977971910/PMQoCOvfnf8bEMapyPxC',
-                  'value': 1.0,
-                  'currency': 'USD'
-                });
-              }
-            `
-          }}
-        />
-      )}
+      <Suspense fallback={null}>
+        <ConversionTracker />
+      </Suspense>
     </div>
   );
 }
