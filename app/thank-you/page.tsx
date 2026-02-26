@@ -1,5 +1,3 @@
-import Script from 'next/script';
-
 export default function ThankYouPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
@@ -29,17 +27,19 @@ export default function ThankYouPage() {
         </div>
       </div>
       
-      <Script id="google-conversion" strategy="afterInteractive">
-        {`
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'conversion', {
-              'send_to': 'AW-YOUR_ID_HERE/YOUR_LABEL_HERE',
-              'value': 150.0,
-              'currency': 'USD'
-            });
-          }
-        `}
-      </Script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'conversion', {
+                'send_to': 'AW-17977971910/PMQoCOvfnf8bEMapyPxC',
+                'value': 1.0,
+                'currency': 'USD'
+              });
+            }
+          `
+        }}
+      />
     </div>
   );
 }
