@@ -46,59 +46,54 @@ export default function CreateJobForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const response = await fetch('/api/admin/jobs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-
       if (response.ok) {
-        setShowForm(false
+        setShowForm(false);
+        router.refresh();
+      } else {
+        const error = await response.json();
+        alert('Error: ' + (error.error || 'Unknown error'));
+      }
+    } catch (error) {
+      alert('Error creating job');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!showForm) {
+    return (
+      <button onClick={() => setShowForm(true)} style={{ backgroundColor: '#2563eb', color: 'white', padding: '10px 20px', border
 
 
 
 
+mkdir -p app/api/admin/clients
 
-
-
-# 3. Update jobs API
-cat > app/api/admin/jobs/route.ts << 'ENDOFFILE'
+cat > app/api/admin/clients/route.ts << 'ENDOFFILE'
 import { createClient } from '@supabase/supabase-js';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export async function POST(request: NextRequest) {
+export async function GET() {
   try {
-    const body = await request.json();
-    
-    if (!body.client_id) {
-      return NextResponse.json({ success: false, error: 'Please select a client' }, { status: 400 });
-    }
-
-    const { data, error } = await supabaseAdmin
-      .from('data_destruction_jobs')
-      .insert([{
-        client_id: body.client_id,
-        destruction_method: body.destruction_method || 'shred',
-        standard: body.standard || 'NIST_800_88',
-        data_classification: body.data_classification || 'confidential',
-        status: body.status || 'pending',
-        notes: body.notes,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }])
-      .select()
-      .single();
-
+    const { data: clients, error } = await supabaseAdmin
+      .from('profiles')
+      .select('id, company_name')
+      .eq('role', 'client')
+      .order('company_name');
     if (error) throw error;
-    return NextResponse.json({ success: true, job: data });
+    return NextResponse.json({ clients: clients || [] });
   } catch (error) {
-    return NextResponse.json({ success: false, error: 'Failed to create job' }, { status: 500 });
+    return NextResponse.json({ clients: [], error: 'Failed to fetch clients' }, { status: 500 });
   }
 }
