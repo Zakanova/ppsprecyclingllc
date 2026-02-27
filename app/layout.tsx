@@ -10,6 +10,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <meta 
+          httpEquiv="Content-Security-Policy" 
+          content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://tmbclpglikapugyldpzs.supabase.co; img-src 'self' data: https:; style-src 'self' 'unsafe-inline';"
+        />
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17977971910"></script>
         <script
           dangerouslySetInnerHTML={{
