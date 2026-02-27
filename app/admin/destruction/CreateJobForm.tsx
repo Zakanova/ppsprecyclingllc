@@ -1,222 +1,104 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+
+interface Client {
+  id: string;
+  company_name: string;
+}
 
 export default function CreateJobForm() {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [clients, setClients] = useState<Client[]>([]);
   const [formData, setFormData] = useState({
     client_id: '',
     destruction_method: 'shred',
     standard: 'NIST_800_88',
     data_classification: 'confidential',
-    notes: '',
-    compliance_frameworks: ['NIST_800_88']
+    status: 'pending',
+    notes: ''
   });
+
+  useEffect(() => {
+    if (showForm) {
+      fetchClients();
+    }
+  }, [showForm]);
+
+  const fetchClients = async () => {
+    try {
+      const response = await fetch('/api/admin/clients');
+      if (response.ok) {
+        const data = await response.json();
+        setClients(data.clients);
+        if (data.clients.length > 0 && !formData.client_id) {
+          setFormData(prev => ({ ...prev, client_id: data.clients[0].id }));
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching clients:', error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await fetch('/api/destruction/jobs', {
+      const response = await fetch('/api/admin/jobs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
 
       if (response.ok) {
-        setShowForm(false);
-        setFormData({
-          client_id: '',
-          destruction_method: 'shred',
-          standard: 'NIST_800_88',
-          data_classification: 'confidential',
-          notes: '',
-          compliance_frameworks: ['NIST_800_88']
-        });
-        router.refresh();
-      } else {
-        alert('Error creating job');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error creating job');
-    } finally {
-      setLoading(false);
+        setShowForm(false
+
+
+
+
+
+
+
+# 3. Update jobs API
+cat > app/api/admin/jobs/route.ts << 'ENDOFFILE'
+import { createClient } from '@supabase/supabase-js';
+import { NextRequest, NextResponse } from 'next/server';
+
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    
+    if (!body.client_id) {
+      return NextResponse.json({ success: false, error: 'Please select a client' }, { status: 400 });
     }
-  };
 
-  if (!showForm) {
-    return (
-      <button
-        onClick={() => setShowForm(true)}
-        style={{
-          backgroundColor: '#2563eb',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '6px',
-          border: 'none',
-          cursor: 'pointer',
-          fontSize: '16px',
-          marginBottom: '20px'
-        }}
-      >
-        + New Job
-      </button>
-    );
+    const { data, error } = await supabaseAdmin
+      .from('data_destruction_jobs')
+      .insert([{
+        client_id: body.client_id,
+        destruction_method: body.destruction_method || 'shred',
+        standard: body.standard || 'NIST_800_88',
+        data_classification: body.data_classification || 'confidential',
+        status: body.status || 'pending',
+        notes: body.notes,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return NextResponse.json({ success: true, job: data });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: 'Failed to create job' }, { status: 500 });
   }
-
-  return (
-    <div style={{
-      backgroundColor: 'white',
-      padding: '20px',
-      borderRadius: '8px',
-      marginBottom: '20px',
-      border: '1px solid #e5e7eb'
-    }}>
-      <h2 style={{ marginTop: 0, marginBottom: '20px' }}>Create New Destruction Job</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 600 }}>
-            Client ID *
-          </label>
-          <input
-            type="text"
-            required
-            value={formData.client_id}
-            onChange={(e) => setFormData({...formData, client_id: e.target.value})}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: '1px solid #d1d5db'
-            }}
-            placeholder="Enter client UUID"
-          />
-        </div>
-
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 600 }}>
-            Destruction Method *
-          </label>
-          <select
-            value={formData.destruction_method}
-            onChange={(e) => setFormData({...formData, destruction_method: e.target.value})}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: '1px solid #d1d5db'
-            }}
-          >
-            <option value="shred">Shred</option>
-            <option value="degauss">Degauss</option>
-            <option value="clear">Clear</option>
-            <option value="purge">Purge</option>
-            <option value="destroy">Destroy</option>
-            <option value="crypto_erase">Crypto Erase</option>
-          </select>
-        </div>
-
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 600 }}>
-            Standard *
-          </label>
-          <select
-            value={formData.standard}
-            onChange={(e) => setFormData({...formData, standard: e.target.value})}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: '1px solid #d1d5db'
-            }}
-          >
-            <option value="NIST_800_88">NIST 800-88</option>
-            <option value="DoD_5220.22_M">DoD 5220.22-M</option>
-            <option value="PCI_DSS">PCI DSS</option>
-            <option value="GDPR">GDPR</option>
-          </select>
-        </div>
-
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 600 }}>
-            Data Classification
-          </label>
-          <select
-            value={formData.data_classification}
-            onChange={(e) => setFormData({...formData, data_classification: e.target.value})}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: '1px solid #d1d5db'
-            }}
-          >
-            <option value="public">Public</option>
-            <option value="internal">Internal</option>
-            <option value="confidential">Confidential</option>
-            <option value="restricted">Restricted</option>
-            <option value="classified">Classified</option>
-          </select>
-        </div>
-
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 600 }}>
-            Notes
-          </label>
-          <textarea
-            value={formData.notes}
-            onChange={(e) => setFormData({...formData, notes: e.target.value})}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: '1px solid #d1d5db',
-              minHeight: '80px'
-            }}
-            placeholder="Job description, special requirements, etc."
-          />
-        </div>
-
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              backgroundColor: loading ? '#9ca3af' : '#059669',
-              color: 'white',
-              padding: '10px 20px',
-              borderRadius: '6px',
-              border: 'none',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              fontSize: '16px'
-            }}
-          >
-            {loading ? 'Creating...' : 'Create Job'}
-          </button>
-          
-          <button
-            type="button"
-            onClick={() => setShowForm(false)}
-            style={{
-              backgroundColor: '#6b7280',
-              color: 'white',
-              padding: '10px 20px',
-              borderRadius: '6px',
-              border: 'none',
-              cursor: 'pointer',
-              fontSize: '16px'
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
-  );
 }
