@@ -1,4 +1,3 @@
-cat > app/admin/destruction/page.tsx << 'ENDOFFILE'
 import { createClient } from '@supabase/supabase-js';
 import CreateJobForm from './CreateJobForm';
 
@@ -78,4 +77,3 @@ export default async function DestructionAdmin() {
     </div>
   );
 }
-ENDOFFILE
