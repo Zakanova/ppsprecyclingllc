@@ -12,12 +12,21 @@ export default function ContactPage() {
     message: '',
     service: 'general'
   });
-  
+
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Fire Google Ads conversion
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-17977971910/iArECOCD6IEcEMapyPxC',
+        'value': 1.0,
+        'currency': 'USD'
+      });
+    }
+
     // Create email body
     const subject = `New Lead: ${formData.name} - ${formData.service}`;
     const body = `
@@ -30,10 +39,10 @@ Service: ${formData.service}
 Message:
 ${formData.message}
     `;
-    
+
     // Open email client
     window.location.href = `mailto:info@ppsprecyclingllc.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
+
     setSubmitted(true);
   };
 
@@ -55,8 +64,8 @@ ${formData.message}
           <p className="text-gray-600 mb-4">
             Your message has been sent. We'll get back to you within 24 hours.
           </p>
-          <a 
-            href="/" 
+          <a
+            href="/"
             className="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
           >
             Back to Home
@@ -101,7 +110,7 @@ ${formData.message}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
+                    Email Address *
                   </label>
                   <input
                     type="email"
@@ -118,7 +127,7 @@ ${formData.message}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone
+                    Phone Number
                   </label>
                   <input
                     type="tel"
@@ -131,7 +140,7 @@ ${formData.message}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Company
+                    Company Name
                   </label>
                   <input
                     type="text"
@@ -228,7 +237,7 @@ ${formData.message}
                 <div className="flex items-start">
                   <Clock className="w-6 h-6 text-green-600 mt-1 mr-4" />
                   <div>
-                    <h3 className="font-semibold text-gray-900">Hours</h3>
+                    <h3 className="font-semibold text-gray-900">Business Hours</h3>
                     <p className="text-gray-600">
                       Mon-Fri: 8:00 AM - 5:00 PM<br />
                       Sat-Sun: Closed
