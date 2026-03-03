@@ -3,6 +3,13 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 
+// Declare gtag for TypeScript
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,7 +26,7 @@ export default function ContactPage() {
     e.preventDefault();
 
     // Fire Google Ads conversion
-    if (typeof window.gtag !== 'undefined') {
+    if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'conversion', {
         'send_to': 'AW-17977971910/iArECOCD6IEcEMapyPxC',
         'value': 1.0,
