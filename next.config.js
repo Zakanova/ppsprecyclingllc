@@ -26,7 +26,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net https://api.emailjs.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://api.emailjs.com; frame-ancestors 'none';",
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://googleads.g.doubleclick.net https://cdn.jsdelivr.net https://api.emailjs.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google.com https://tmbclpglikapugyldpzs.supabase.co https://api.emailjs.com; frame-src 'self' https://www.googletagmanager.com; frame-ancestors 'none';",
           },
           {
             key: 'Strict-Transport-Security',
