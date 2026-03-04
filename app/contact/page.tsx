@@ -38,13 +38,15 @@ export default function ContactPage() {
     });
   };
 
-  const fireConversion = () => {
+  // Fire conversion when button is clicked
+  const handleButtonClick = () => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'conversion', {
         'send_to': 'AW-17977971910/iArECOCD6IEcEMapyPxC',
         'value': 1.0,
         'currency': 'USD'
       });
+      console.log('Conversion fired!'); // For debugging
     }
   };
 
@@ -116,7 +118,11 @@ export default function ContactPage() {
                 <textarea name="message" required rows={4} value={formData.message} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Describe your e-waste recycling needs..." />
               </div>
 
-              <button type="submit" onClick={fireConversion} className="w-full bg-green-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+              <button 
+                type="submit" 
+                onClick={handleButtonClick}
+                className="w-full bg-green-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+              >
                 <Send className="w-5 h-5" />
                 Get Free Quote
               </button>
