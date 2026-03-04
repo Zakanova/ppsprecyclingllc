@@ -18,6 +18,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'AW-17977971910');
+              
+              // Global conversion function
+              window.fireGoogleConversion = function() {
+                if (window.gtag) {
+                  window.gtag('event', 'conversion', {
+                    'send_to': 'AW-17977971910/iArECOCD6IEcEMapyPxC',
+                    'value': 1.0,
+                    'currency': 'USD'
+                  });
+                  console.log('Conversion fired!');
+                }
+              };
             `
           }}
         />
