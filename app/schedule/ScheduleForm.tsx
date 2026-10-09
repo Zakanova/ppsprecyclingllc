@@ -1,13 +1,15 @@
 "use client"
 
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import emailjs from '@emailjs/browser'
 import { Truck, HardDrive, User, Phone, MapPin, Building, ArrowRight, CheckCircle } from 'lucide-react'
 
 export default function ScheduleForm() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const type = searchParams.get('type') || 'general'
-  
+
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -20,12 +22,40 @@ export default function ScheduleForm() {
     preferredDate: '',
     notes: ''
   })
-  
-  const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setIsSubmitting(true)
+    try {
+      await emailjs.send(
+        'service_2n2wp4f',
+        'template_6PR2XTL',
+        {
+          to_email: 'ppsprecyclingllc@gmail.com',
+          from_name: formData.name,
+          from_email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          address: formData.address,
+          service_type: formData.serviceType,
+          equipment: formData.equipmentType,
+          quantity: formData.quantity,
+          preferred_date: formData.preferredDate,
+          notes: formData.notes,
+          reply_to: formData.email
+        },
+        'bDtZRRUSav3APye6G'
+      )
+      // Redirect with source=form so the Google Ads conversion tag fires
+      router.push('/thank-you?source=form')
+    } catch (error) {
+      console.error('Email failed:', error)
+      alert('Failed to send request. Please call 916-381-8304 directly.')
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -71,7 +101,7 @@ export default function ScheduleForm() {
                 <User className="h-5 w-5 mr-2 text-green-600" />
                 Contact Information
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
@@ -154,9 +184,9 @@ export default function ScheduleForm() {
             </div>
 
             <div className="pt-4">
-              <button type="submit"
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg flex items-center justify-center space-x-2">
-                <span>Submit Pickup Request</span>
+              <button type="submit" disabled={isSubmitting}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg flex items-center justify-center space-x-2 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                <span>{isSubmitting ? 'Sending...' : 'Submit Pickup Request'}</span>
                 <ArrowRight className="h-5 w-5" />
               </button>
             </div>
