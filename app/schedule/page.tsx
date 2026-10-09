@@ -98,7 +98,7 @@ function ScheduleForm() {
         }
       );
 
-      router.push('/thank-you');
+      router.push('/thank-you?source=form');
     } catch (error: any) {
       alert('Failed to send request: ' + (error?.text || error?.message || 'Unknown error') + '. Please call 916-381-8304 directly.');
       setIsSubmitting(false);
